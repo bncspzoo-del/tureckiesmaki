@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tureckie Smaki - Best Kebab in the City | Najlepszy Kebab w Mieście</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --red-600:#dc2626;
+      --red-700:#b91c1c;
+      --muted:#6b7280;
+      --card-bg:#ffffff;
+      --radius:14px;
+      --container:1200px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; color:#111827;line-height:1.6;background:#f8fafc}
+    .container{max-width:var(--container);margin:0 auto;padding:0 20px}
+
+    /* Header */
+    header{position:fixed;left:0;right:0;top:0;z-index:1100;background:linear-gradient(135deg,var(--red-600),var(--red-700));color:#fff;box-shadow:0 6px 24px rgba(0,0,0,0.12)}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+    .logo img{height:48px;width:auto;display:block}
+
+    /* Nav links (desktop) */
+    .nav-links{display:flex;gap:18px;align-items:center;list-style:none}
+    .nav-links a{color:#fff;text-decoration:none;padding:8px 14px;border-radius:999px;font-weight:600;transition:all .18s ease;font-size:0.95rem}
+    .nav-links a:hover{background:rgba(255,255,255,0.12);transform:translateY(-2px)}
+
+    /* language toggle */
+    .language-toggle{display:flex;gap:6px;background:rgba(255,255,255,0.12);padding:6px;border-radius:999px}
+    .lang-btn{background:transparent;border:0;color:#fff;padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:600}
+    .lang-btn.active{background:#fff;color:var(--red-600)}
+
+    /* hamburger */
+    .menu-toggle{display:none;background:transparent;border:0;color:#fff;font-size:22px;padding:8px;border-radius:8px}
+
+    /* Hero */
+    .hero{min-height:75vh;display:flex;align-items:center;justify-content:center;padding:110px 0 80px;background-image:linear-gradient(rgba(0,0,0,0.52),rgba(0,0,0,0.42)),url('images/gallery-doner-1.jpg');background-position:center;background-size:cover;background-attachment:fixed;color:#fff;text-align:center}
+    .hero-inner{max-width:950px;padding:28px}
+    .hero h1{font-size:3.2rem;margin-bottom:12px;text-shadow:2px 6px 22px rgba(0,0,0,0.5)}
+    .hero p{font-size:1.1rem;margin-bottom:18px;color:rgba(255,255,255,0.92)}
+    .cta{display:inline-block;background:#fff;color:var(--red-600);padding:12px 28px;border-radius:999px;font-weight:700;text-decoration:none;box-shadow:0 6px 26px rgba(0,0,0,0.18);transition:transform .18s ease}
+    .cta:hover{transform:translateY(-4px)}
+
+    /* Sections */
+    section{padding:86px 0}
+    .section-title{font-size:2rem;color:var(--red-600);text-align:center;margin-bottom:32px;font-weight:700;position:relative}
+    .section-title::after{content:'';width:84px;height:4px;background:var(--red-600);display:block;margin:12px auto 0;border-radius:4px}
+
+    /* Grid utilities */
+    .grid{display:grid;gap:20px}
+
+    /* Menu */
+    .menu .menu-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+    .card{background:var(--card-bg);border-radius:var(--radius);padding:14px;box-shadow:0 8px 26px rgba(15,23,42,0.06);overflow:hidden}
+    .card img{width:100%;height:220px;object-fit:cover;border-radius:10px;display:block;cursor:pointer}
+    .card h4{margin-top:12px;font-size:1.02rem}
+    .card p{margin-top:8px;color:var(--muted);font-size:0.94rem}
+
+    /* ----------------------- Smooth UI enhancements ----------------------- */
+    /* Card hover effect for subtle lift and shadow */
+    .card{transition:transform .25s ease, box-shadow .25s ease}
+    .card:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(15,23,42,0.12)}
+
+    /* Gallery image hover for a gentle zoom */
+    .gallery-item img{transition:transform .25s ease}
+    .gallery-item img:hover{transform:scale(1.05)}
+
+    /* Recommended list styling for badges */
+    .recommended-list{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;list-style:none;margin-top:20px;padding:0}
+    .recommended-list li{background:#fff;color:var(--red-600);padding:8px 16px;border-radius:999px;box-shadow:0 6px 20px rgba(15,23,42,0.05);font-weight:500;transition:transform .2s ease}
+    .recommended-list li:hover{transform:translateY(-4px)}
+
+
+    /* Gallery */
+    .gallery-grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));}
+    .gallery-item img{width:100%;height:160px;object-fit:cover;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.06);cursor:pointer}
+
+    /* About */
+    .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+    .about-text p{color:var(--muted);margin-bottom:12px}
+    .about-image{height:320px;border-radius:16px;background:linear-gradient(135deg,var(--red-600),var(--red-700));display:flex;align-items:center;justify-content:center;color:white;padding:18px;box-shadow:0 14px 46px rgba(220,38,38,0.16)}
+
+    /* Location */
+    .contact-info{display:grid;gap:12px}
+    .contact-item{display:flex;gap:12px;align-items:flex-start;padding:12px;background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.04)}
+    .contact-icon{min-width:48px;height:48px;border-radius:10px;background:var(--red-600);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    .map-placeholder{min-height:300px;border-radius:12px;background:linear-gradient(135deg,#eef2f6,#e6e9ef);display:flex;align-items:center;justify-content:center;text-align:center;padding:22px;color:var(--muted)}
+
+    /* Footer */
+    footer{background:linear-gradient(135deg,var(--red-600),var(--red-700));color:#fff;padding:44px 0;margin-top:24px}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+    .footer-section h4{margin-bottom:8px}
+    .social-links{display:flex;gap:10px;margin-top:12px}
+    .social-links a{width:40px;height:40px;border-radius:999px;background:rgba(255,255,255,0.15);display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;align-items:center;justify-content:center;padding:24px;z-index:1400}
+    .lightbox.show{display:flex}
+    .lightbox-content{max-width:1100px;width:100%;background:transparent;border-radius:12px}
+    .lightbox-content img{width:100%;height:auto;border-radius:12px;display:block}
+    .lightbox-caption{margin-top:10px;color:#fff;text-align:center}
+    .lightbox-close{position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.12);border:0;color:#fff;padding:8px 10px;border-radius:8px;font-size:20px;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:980px){.about-inner{grid-template-columns:1fr}.hero h1{font-size:2.4rem}.menu .menu-grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:680px){.nav-links{display:none}.menu-toggle{display:inline-block}.nav-links.mobile{display:flex;flex-direction:column;gap:6px;padding:12px;background:linear-gradient(135deg,var(--red-600),var(--red-700));position:absolute;left:0;right:0;top:66px;border-bottom-left-radius:12px;border-bottom-right-radius:12px}
+      .hero{padding-top:110px}.gallery-item img{height:140px}.card img{height:180px}}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    a.btn{display:inline-block}
+
+    /* Show only the currently active language content */
+    .lang-content{display:none}
+    .lang-content.active{display:block}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav aria-label="Main navigation">
+        <div class="logo"><img src="images/logo.png" alt="Tureckie Smaki logo" /></div>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a class="nav-link" href="#home" data-en="Home" data-pl="Strona Główna">Home</a></li>
+          <li><a class="nav-link" href="#menu" data-en="Menu" data-pl="Menu">Menu</a></li>
+          <li><a class="nav-link" href="#gallery" data-en="Gallery" data-pl="Galeria">Gallery</a></li>
+          <li><a class="nav-link" href="#about" data-en="About" data-pl="O Nas">About</a></li>
+          <li><a class="nav-link" href="#location" data-en="Location" data-pl="Lokalizacja">Location</a></li>
+        </ul>
+
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="language-toggle" role="tablist" aria-label="Language selector">
+            <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+            <button class="lang-btn" data-lang="pl" aria-pressed="false">PL</button>
+          </div>
+
+          <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">☰</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section id="home" class="hero" aria-label="Hero">
+      <div class="container hero-inner">
+        <div class="lang-content active" id="hero-en">
+          <h1>Best Kebab in Poznań!</h1>
+          <p>Fresh ingredients, authentic flavors and traditional recipes. Discover the true taste of Turkey in the heart of Poznań.</p>
+          <a class="cta" href="#menu">View Menu</a>
+        </div>
+
+        <div class="lang-content" id="hero-pl">
+          <h1>Najlepszy Kebab w Poznaniu!</h1>
+          <p>Świeże składniki, autentyczne smaki i tradycyjne receptury. Odkryj prawdziwy smak Turcji w sercu Poznania.</p>
+          <a class="cta" href="#menu">Zobacz Menu</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section id="menu" class="menu">
+      <div class="container">
+        <div class="lang-content active" id="menu-en">
+          <h2 class="section-title">Our Menu</h2>
+          <div class="grid menu-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+            <div class="card">
+              <img class="lightbox-trigger" src="images/menu-specials.jpg" alt="Specials" data-caption="Specials - Chef's picks" />
+              <h4>Chef Specials</h4>
+              <p class="muted">Daily specials prepared with fresh ingredients.</p>
+            </div>
+            <div class="card">
+              <img class="lightbox-trigger" src="images/menu-main.jpg" alt="Lawasz & Box" data-caption="Lawasz & Box - Filled with fresh meat and veggies" />
+              <h4>Lawasz & Box</h4>
+              <p class="muted">Tasty wraps and boxes — choose your fillings and sauces.</p>
+            </div>
+            <div class="card">
+              <img class="lightbox-trigger" src="images/menu-talerz.jpg" alt="Talerz" data-caption="Talerz - Mixed platter with rice and salad" />
+              <h4>Talerz (Platter)</h4>
+              <p class="muted">Perfect for sharing — meat, rice, salads and sauces.</p>
+            </div>
+            <div class="card">
+              <img class="lightbox-trigger" src="images/menu-pizza.jpg" alt="Pizza" data-caption="Turkish style pizza" />
+              <h4>Pizza</h4>
+              <p class="muted">Stone-baked pizzas with Turkish toppings.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lang-content" id="menu-pl">
+          <h2 class="section-title">Nasze Menu</h2>
+          <div class="grid menu-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+            <div class="card">
+              <img class="lightbox-trigger" src="images/menu-specials.jpg" alt="Specjały" data-caption="Specjały - propozycje szefa" />
+              <h4>Specjały Szefa</h4>
+              <p class="muted">Specjały dnia przygotowane z świeżych składników.</p>
+            </div>
+            <div class="card">
+              <img class="lightbox-trigger" src="images/menu-main.jpg" alt="Lawasz & Box" data-caption="Lawasz & Box - z mięsem i warzywami" />
+              <h4>Lawasz & Box</h4>
+              <p class="muted">Smaczne wrapy i boxy — wybierz nadzienie i sosy.</p>
+            </div>
+            <div class="card">
+              <img class="lightbox-trigger" src="images/menu-talerz.jpg" alt="Talerz" data-caption="Talerz - mieszany talerz z ryżem i sałatką" />
+              <h4>Talerz</h4>
+              <p class="muted">Idealny do dzielenia — mięso, ryż, sałatki i sosy.</p>
+            </div>
+            <div class="card">
+              <img class="lightbox-trigger" src="images/menu-pizza.jpg" alt="Pizza" data-caption="Pizza w tureckim stylu" />
+              <h4>Pizza</h4>
+              <p class="muted">Pizze wypiekane na kamieniu z tureckimi dodatkami.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="gallery">
+      <div class="container">
+        <!-- Language-specific gallery titles -->
+        <div class="lang-content active" id="gallery-en">
+          <h2 class="section-title">Gallery</h2>
+        </div>
+        <div class="lang-content" id="gallery-pl">
+          <h2 class="section-title">Galeria</h2>
+        </div>
+        <div class="grid gallery-grid">
+          <div class="gallery-item"><img class="lightbox-trigger" src="images/gallery-doner-1.jpg" alt="Doner Kebab cooking on a spit" data-caption="Doner Kebab cooking on a spit" /></div>
+          <div class="gallery-item"><img class="lightbox-trigger" src="images/gallery-doner-2.jpg" alt="Two large doner kebabs" data-caption="Two large doner kebabs" /></div>
+          <div class="gallery-item"><img class="lightbox-trigger" src="images/gallery-doner-3.jpg" alt="Beef and chicken doner kebabs" data-caption="Beef and chicken doner kebabs" /></div>
+          <div class="gallery-item"><img class="lightbox-trigger" src="images/gallery-pide.jpg" alt="Turkish Pide" data-caption="Turkish Pide with sausage" /></div>
+          <div class="gallery-item"><img class="lightbox-trigger" src="images/gallery-pizza-1.jpg" alt="Pizza with sausage and corn" data-caption="Pizza with sausage and corn" /></div>
+          <div class="gallery-item"><img class="lightbox-trigger" src="images/gallery-pizza-2.jpg" alt="Pizza with olives and tomatoes" data-caption="Pizza with olives and tomatoes" /></div>
+          <div class="gallery-item"><img class="lightbox-trigger" src="images/gallery-pizza-3.jpg" alt="Pepperoni pizza with olives" data-caption="Pepperoni pizza with olives" /></div>
+          <div class="gallery-item"><img class="lightbox-trigger" src="images/gallery-pizza-4.jpg" alt="Pepperoni pizza with green olives" data-caption="Pepperoni pizza with green olives" /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="lang-content active" id="about-en">
+          <h2 class="section-title">About Our Restaurant</h2>
+          <div class="about-inner">
+            <div class="about-text">
+              <p>Tureckie Smaki is a family restaurant operating in Poznań for over 10 years. We specialize in authentic Turkish cuisine, preparing our dishes according to traditional recipes passed down for generations.</p>
+              <p>We use only fresh, high-quality ingredients. Our meat is delivered daily from trusted local suppliers, and vegetables are always crisp. All sauces are made in-house using our secret recipes.</p>
+              <p>Our mission is to offer not only delicious food but a piece of Turkish culture and hospitality. Every guest matters and we strive to make every visit unforgettable.</p>
+            </div>
+            <div class="about-image card">
+              <div style="padding:18px;text-align:center">
+                <h3 style="margin-bottom:8px;">🏆 Best Quality</h3>
+                <p class="muted">Fresh ingredients daily · Traditional recipes · Experienced chef team</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lang-content" id="about-pl">
+          <h2 class="section-title">O Naszej Restauracji</h2>
+          <div class="about-inner">
+            <div class="about-text">
+              <p>Tureckie Smaki to rodzinna restauracja działająca w Poznaniu od ponad 10 lat. Specjalizujemy się w autentycznej kuchni tureckiej, przygotowując potrawy według tradycyjnych receptur przekazywanych z pokolenia na pokolenie.</p>
+              <p>Używamy tylko świeżych, wysokiej jakości składników. Nasze mięso dostarczane jest codziennie od zaufanych lokalnych dostawców, a warzywa są zawsze chrupiące. Wszystkie sosy przygotowujemy samodzielnie według naszych sekretnych przepisów.</p>
+              <p>Naszą misją jest oferowanie nie tylko pysznego jedzenia, ale też kawałka tureckiej kultury i gościnności. Każdy gość jest dla nas ważny, a każda wizyta ma być niezapomniana.</p>
+            </div>
+            <div class="about-image card">
+              <div style="padding:18px;text-align:center">
+                <h3 style="margin-bottom:8px;">🏆 Najlepsza Jakość</h3>
+                <p class="muted">Świeże składniki codziennie · Tradycyjne przepisy · Doświadczony zespół kucharzy</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- RECOMMENDED BY -->
+<section id="recommended" class="recommended">
+  <div class="container">
+    <!-- English version of the Recommended section -->
+    <div class="lang-content active" id="recommended-en">
+      <h2 class="section-title">Recommended By</h2>
+      <ul class="recommended-list">
+        <li>MrKryha</li>
+        <li>kebson</li>
+        <li>Martinfknscott</li>
+        <li>Nowotnia</li>
+        <li>Gastropoznaniak</li>
+        <li>kierunekpoznan</li>
+        <li>Gdziezjecwpoznaniu</li>
+      </ul>
+    </div>
+    <!-- Polish version of the Recommended section -->
+    <div class="lang-content" id="recommended-pl">
+      <h2 class="section-title">Polecane przez</h2>
+      <ul class="recommended-list">
+        <li>MrKryha</li>
+        <li>kebson</li>
+        <li>Martinfknscott</li>
+        <li>Nowotnia</li>
+        <li>Gastropoznaniak</li>
+        <li>kierunekpoznan</li>
+        <li>Gdziezjecwpoznaniu</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+    <!-- LOCATION -->
+    <section id="location" class="location">
+      <div class="container">
+        <div class="lang-content active" id="location-en">
+          <h2 class="section-title">Find Us</h2>
+          <div class="grid" style="grid-template-columns:1fr 1fr;gap:22px;align-items:start">
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div>
+                  <h4>Address</h4>
+                  <p>Święty Marcin 25<br>61-803 Poznań, Poland</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <div>
+                  <h4>Phone</h4>
+                  <p>+48 577 687 913</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">🕒</div>
+                <div>
+                  <h4>Opening Hours</h4>
+                  <p>Mon–Thu: 11:00–23:00<br>Fri–Sat: 11:00–24:00<br>Sun: 12:00–22:00</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">🚚</div>
+                <div>
+                  <h4>Delivery</h4>
+                  <p>Glovo<br>Minimum order: 25 zł<br>Call us to order now</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="map-placeholder">
+              <div>
+                <h3>🗺️ Map</h3>
+<p>We are located in the center of Poznań on Święty Marcin street.<br><br><strong>Easy access:</strong><br>🚌 Bus: line 100<br>🚊 Tram: lines 2, 3, 5, 9, 13, 16, 19, 201, 202<br>🅿️ Parking available nearby</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lang-content" id="location-pl">
+          <h2 class="section-title">Znajdź Nas</h2>
+          <div class="grid" style="grid-template-columns:1fr 1fr;gap:22px;align-items:start">
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div>
+                  <h4>Adres</h4>
+                  <p>Święty Marcin 25<br>61-803 Poznań</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <div>
+                  <h4>Telefon</h4>
+                  <p>+48 577 687 913</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">🕒</div>
+                <div>
+                  <h4>Godziny Otwarcia</h4>
+                  <p>Pn–Czw: 11:00–23:00<br>Pt–Sb: 11:00–24:00<br>Nd: 12:00–22:00</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">🚚</div>
+                <div>
+                  <h4>Dostawa</h4>
+                  <p>Glovo<br>Minimalne zamówienie: 25 zł<br>Zadzwoń, aby zamówić teraz</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="map-placeholder">
+              <div>
+                <h3>🗺️ Mapa</h3>
+<p>Jesteśmy w centrum Poznania przy ulicy Święty Marcin.<br><br><strong>Łatwy dojazd:</strong><br>🚌 Autobus: linia 100<br>🚊 Tramwaj: linie 2, 3, 5, 9, 13, 16, 19 oraz nocne 201 i 202<br>🅿️ Parking dostępny w pobliżu</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="lang-content active" id="footer-en">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>Tureckie Smaki</h4>
+            <p>Authentic taste of Turkey in the heart of Poznań. Come and try the best kebab in the city!</p>
+            <div class="social-links">
+              <a href="https://www.facebook.com/p/Tureckie-Smaki-61575392788512/" title="Facebook" target="_blank" rel="noopener">f</a>
+              <a href="https://www.instagram.com/tureckiesmaki/" title="Instagram" target="_blank" rel="noopener">📷</a>
+              <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x47045b499e2778e1:0x4bb5b6382cb4ecea?sa=X&ved=1t:8290&ictx=111" title="Google Map" target="_blank" rel="noopener">G</a>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <p><a href="#menu" style="color:inherit;text-decoration:underline">Menu</a></p>
+            <p><a href="#gallery" style="color:inherit;text-decoration:underline">Gallery</a></p>
+            <p><a href="#about" style="color:inherit;text-decoration:underline">About Us</a></p>
+            <p><a href="#location" style="color:inherit;text-decoration:underline">Contact</a></p>
+            <p><a href="#" style="color:inherit;text-decoration:underline">Delivery</a></p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Contact</h4>
+            <p>📍 Święty Marcin 25, Poznań</p>
+            <p>📞 +48 577 687 913</p>
+            <p>✉️ info@tureckiesmaki.pl</p>
+          </div>
+        </div>
+        <p style="margin-top:18px;opacity:0.95">&copy; 2025 Tureckie Smaki. All rights reserved.</p>
+      </div>
+
+      <div class="lang-content" id="footer-pl">
+        <div class="footer-grid">
+          <div class="footer-section">
+            <h4>Tureckie Smaki</h4>
+            <p>Autentyczny smak Turcji w sercu Poznania. Zapraszamy na najlepszy kebab w mieście!</p>
+            <div class="social-links">
+              <a href="https://www.facebook.com/p/Tureckie-Smaki-61575392788512/" title="Facebook" target="_blank" rel="noopener">f</a>
+              <a href="https://www.instagram.com/tureckiesmaki/" title="Instagram" target="_blank" rel="noopener">📷</a>
+              <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x47045b499e2778e1:0x4bb5b6382cb4ecea?sa=X&ved=1t:8290&ictx=111" title="Google Map" target="_blank" rel="noopener">G</a>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h4>Szybkie Linki</h4>
+            <p><a href="#menu" style="color:inherit;text-decoration:underline">Menu</a></p>
+            <p><a href="#gallery" style="color:inherit;text-decoration:underline">Galeria</a></p>
+            <p><a href="#about" style="color:inherit;text-decoration:underline">O Nas</a></p>
+            <p><a href="#location" style="color:inherit;text-decoration:underline">Kontakt</a></p>
+            <p><a href="#" style="color:inherit;text-decoration:underline">Dostawa</a></p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Kontakt</h4>
+            <p>📍 Święty Marcin 25, Poznań</p>
+            <p>📞 +48 577 687 913</p>
+            <p>✉️ info@tureckiesmaki.pl</p>
+          </div>
+        </div>
+        <p style="margin-top:18px;opacity:0.95">&copy; 2025 Tureckie Smaki. Wszystkie prawa zastrzeżone.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-hidden="true">
+    <div class="lightbox-content" role="document">
+      <button class="lightbox-close" aria-label="Close">×</button>
+      <img src="" alt="" />
+      <p class="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <script>
+    // --- Language switching ---
+    const langButtons = document.querySelectorAll('.lang-btn');
+    const langContents = document.querySelectorAll('.lang-content');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const htmlEl = document.documentElement;
+    let currentLang = 'en';
+
+    function updateNavText(lang){
+      navLinks.forEach(a => {
+        const txt = a.dataset[lang] || a.textContent;
+        a.textContent = txt;
+      });
+    }
+
+    function switchLanguage(lang){
+      // buttons
+      langButtons.forEach(btn => {
+        const active = btn.dataset.lang === lang;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      // content
+      langContents.forEach(c => c.classList.toggle('active', c.id.endsWith(`-${lang}`)));
+
+      // update nav
+      updateNavText(lang);
+      htmlEl.lang = (lang === 'pl') ? 'pl' : 'en';
+      currentLang = lang;
+
+      // close mobile nav if open
+      if(window.innerWidth <= 680){
+        navLinksEl.classList.remove('mobile');
+        menuToggleEl.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    langButtons.forEach(btn => btn.addEventListener('click', ()=> switchLanguage(btn.dataset.lang)));
+
+    // initialize nav text
+    updateNavText(currentLang);
+
+    // --- Mobile menu toggle ---
+    const menuToggleEl = document.getElementById('menuToggle');
+    const navLinksEl = document.getElementById('navLinks');
+
+    menuToggleEl.addEventListener('click', ()=>{
+      const open = navLinksEl.classList.toggle('mobile');
+      menuToggleEl.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // --- Lightbox ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+    document.querySelectorAll('.lightbox-trigger').forEach(img => {
+      img.addEventListener('click', (e) => {
+        const src = img.getAttribute('src');
+        const alt = img.getAttribute('alt') || '';
+        const caption = img.dataset.caption || alt || '';
+        lightboxImg.src = src;
+        lightboxImg.alt = alt;
+        lightboxCaption.textContent = caption;
+        lightbox.classList.add('show');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox(){
+      lightbox.classList.remove('show');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) closeLightbox(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeLightbox(); });
+
+    // Ensure the correct language content is visible on load
+    (function init(){
+      // Hide all .lang-content without proper suffix
+      langContents.forEach(c=>{
+        if(c.id.endsWith('-en')) c.classList.toggle('active', currentLang==='en');
+        if(c.id.endsWith('-pl')) c.classList.toggle('active', currentLang==='pl');
+      });
+      updateNavText(currentLang);
+    })();
+
+  </script>
+</body>
+</html>
